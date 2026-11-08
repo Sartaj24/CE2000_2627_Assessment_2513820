@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOM Lab | Task List</title>
+  <style>
+    :root{--ink:#202638;--brand:#6d28d9;--line:#d9dfeb;--soft:#f7f8fb}
+    *{box-sizing:border-box}
+    body{max-width:840px;margin:2rem auto;padding:0 1rem 3rem;font:1rem/1.55 Arial,sans-serif;color:var(--ink)}
+    .panel{margin:1rem 0;padding:1.2rem;border:1px solid var(--line);border-radius:14px;background:var(--soft)}
+    label{display:block;margin-bottom:.35rem;font-weight:700}
+    input{width:100%;max-width:480px;padding:.7rem .8rem;border:1px solid #aeb8ca;border-radius:8px;font:inherit}
+    button{margin:.35rem .3rem .35rem 0;padding:.65rem .9rem;border:0;border-radius:8px;background:var(--brand);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+    button:hover,button:focus-visible{background:#4c1d95}
+    li{padding:.35rem .5rem;margin:.3rem 0;border-radius:6px}
+    .highlight{background:#fff0a8;color:#202638;font-weight:700}
+    #status{min-height:1.5em;margin-bottom:0}
+    .hint{color:#626c7c;font-size:.92rem}
+  </style>
+</head>
+<body>
+  <p><a href="index.html">← Back to lab index</a></p>
+  <h1 id="title">Starter heading</h1>
+  <p class="hint">This page combines the lecture's DOM activities: selecting nodes, updating text, event listeners, highlighting, adding/removing tasks and moving list items.</p>
+  <section class="panel" aria-labelledby="title-controls"><h2 id="title-controls">1. Change the heading</h2><label for="titleInput">Heading text</label><input id="titleInput" type="text" placeholder="Type a heading"></section>
+  <section class="panel" aria-labelledby="task-heading">
+    <h2 id="task-heading">2. Task list</h2>
+    <ul id="tasks"><li class="task">Read the lab brief</li><li class="task">Practise HTML and CSS</li><li class="task">Test the webpage</li></ul>
+    <p><strong>Task count:</strong> <span id="taskCount">3</span></p>
+    <label for="newTask">New task</label><input id="newTask" type="text" placeholder="Enter a task to add">
+    <div><button id="addTask" type="button">Add task</button><button id="removeTask" type="button">Remove last task</button><button id="moveTask" type="button">Move last to first</button><button id="highlightTasks" type="button" aria-pressed="false">Highlight tasks</button></div>
+  </section>
+  <section class="panel" aria-labelledby="counter-heading"><h2 id="counter-heading">3. Click counter</h2><p>Clicks: <strong id="clickCount">0</strong></p><button id="countClicks" type="button">Count clicks</button><button id="resetClicks" type="button">Reset</button></section>
+  <section class="panel" aria-labelledby="status-heading"><h2 id="status-heading">Status</h2><p id="status" role="status" aria-live="polite">Ready.</p></section>
+  <script>
+    // Activity 6: select the heading and task list, then number the tasks.
+    const title = document.getElementById('title');
+    const status = document.getElementById('status');
+    const taskList = document.getElementById('tasks');
+    const taskCount = document.getElementById('taskCount');
+    const clickCountDisplay = document.getElementById('clickCount');
+    const titleInput = document.getElementById('titleInput');
+    const newTaskInput = document.getElementById('newTask');
+    let clickCount = 0;
+    let highlighting = false;
+
+    title.textContent = 'My DOM task list';
+    function renumberTasks() {
+      taskList.querySelectorAll('.task').forEach((task, index) => {
+        task.textContent = task.textContent.replace(/^\d+\.\s*/, '');
+        task.textContent = `${index + 1}. ${task.textContent}`;
+      });
+    }
+    function updateStatus(message = '') {
+      const count = taskList.querySelectorAll('.task').length;
+      taskCount.textContent = String(count);
+      status.textContent = `${message}${message ? ' ' : ''}There ${count === 1 ? 'is' : 'are'} ${count} task${count === 1 ? '' : 's'} and the click counter is ${clickCount}.`;
+    }
+    function refreshTasks(message) {
+      // Remove old numbering before numbering again after a move or delete.
+      taskList.querySelectorAll('.task').forEach(task => task.textContent = task.textContent.replace(/^\d+\.\s*/, ''));
+      renumberTasks();
+      taskList.querySelectorAll('.task').forEach(task => task.classList.toggle('highlight', highlighting));
+      updateStatus(message);
+    }
+    renumberTasks();
+    refreshTasks('Ready.');
+
+    // Inspect these values in the Console for Activity 6.
+    console.log('Task list parentElement:', taskList.parentElement);
+    console.log('Task list children:', taskList.children);
+    console.log('Task list childNodes:', taskList.childNodes);
+
+    // Activity 7: count clicks and reset variable and display.
+    document.getElementById('countClicks').addEventListener('click', () => {
+      clickCount += 1; clickCountDisplay.textContent = String(clickCount); updateStatus('Click counted.');
+    });
+    document.getElementById('resetClicks').addEventListener('click', () => {
+      clickCount = 0; clickCountDisplay.textContent = '0'; updateStatus('Click counter reset.');
+    });
+
+    // Activity 8: use input event and trim to restore the default heading when blank.
+    titleInput.addEventListener('input', () => { title.textContent = titleInput.value.trim() || 'My DOM task list'; });
+    const highlightButton = document.getElementById('highlightTasks');
+    highlightButton.addEventListener('click', () => {
+      highlighting = !highlighting;
+      refreshTasks(highlighting ? 'Task highlighting is on.' : 'Task highlighting is off.');
+      highlightButton.textContent = highlighting ? 'Turn highlighting off' : 'Highlight tasks';
+      highlightButton.setAttribute('aria-pressed', String(highlighting));
+    });
+
+    // Activity 9: add a non-blank task and handle an empty list on removal.
+    document.getElementById('addTask').addEventListener('click', () => {
+      const value = newTaskInput.value.trim();
+      if (!value) { updateStatus('Enter a task.'); newTaskInput.focus(); return; }
+      const item = document.createElement('li'); item.textContent = value; item.classList.add('task');
+      taskList.appendChild(item); newTaskInput.value = ''; refreshTasks('Task added.'); newTaskInput.focus();
+    });
+    newTaskInput.addEventListener('keydown', event => { if (event.key === 'Enter') document.getElementById('addTask').click(); });
+    document.getElementById('removeTask').addEventListener('click', () => {
+      if (!taskList.lastElementChild) { updateStatus('There are no tasks left to remove.'); return; }
+      taskList.lastElementChild.remove(); refreshTasks('Last task removed.');
+    });
+
+    // Activity 10: insertBefore moves the current last child before the first child.
+    document.getElementById('moveTask').addEventListener('click', () => {
+      const first = taskList.firstElementChild; const last = taskList.lastElementChild;
+      if (!first || !last || taskList.children.length < 2) { updateStatus('Add at least two tasks before moving the last task to the first position.'); return; }
+      taskList.insertBefore(last, first); refreshTasks('Last task moved to the top.');
+    });
+  </script>
+</body>
+</html>

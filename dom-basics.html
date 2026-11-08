@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOM Basics | CE2000</title>
+  <style>body{max-width:760px;margin:3rem auto;padding:0 1rem;font:1rem/1.6 Arial,sans-serif;color:#263247}code,pre{background:#f1f5f9;padding:.2rem .35rem;border-radius:.3rem}pre{padding:1rem;overflow:auto}.output{padding:1rem;border:1px solid #cbd5e1;border-radius:.75rem;background:#f8fafc}</style>
+</head>
+<body>
+  <p><a href="index.html">← Back to lab index</a></p>
+  <h1>DOM Basics: reading an element</h1>
+  <p id="intro">Hello World!</p>
+  <div class="output" aria-label="DOM activity output">
+    <p>The line below is written by the example from the lecture:</p>
+    <script>
+      // Week 4 Activity 2: get an element's HTML and write it into the document.
+      var txt = document.getElementById('intro').innerHTML;
+      document.write('<p>The text captured before the change: ' + txt + '</p>');
+      // Activity 2: this changes the original paragraph after txt has already been captured.
+      document.getElementById('intro').innerHTML = 'Hello Universe!';
+    </script>
+  </div>
+  <h2>What to notice</h2>
+  <p><code>getElementById()</code> selects the paragraph by its ID. <code>innerHTML</code> reads its contents. The script first saves “Hello World!” in a variable, writes that saved value to the document, and then changes the original paragraph to “Hello Universe!”. The added line still shows the earlier value because it was captured first. <code>document.write()</code> is demonstrated because the lecture asks for it; modern pages usually update existing elements with <code>textContent</code> instead.</p>
+</body>
+</html>

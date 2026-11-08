@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tasty Things | DOM practice</title>
+  <style>
+    body{max-width:760px;margin:3rem auto;padding:0 1rem;font-family:Arial,sans-serif;line-height:1.6;color:#263247}
+    img{display:block;width:min(100%,340px);margin:1rem 0}
+    button{margin:.25rem .5rem .25rem 0;padding:.6rem .9rem;border:0;border-radius:8px;background:#6d28d9;color:#fff;cursor:pointer}
+    button:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+    #fact{font-size:1.25rem;font-weight:700}
+  </style>
+</head>
+<body>
+  <p><a href="index.html">← Back to lab index</a></p>
+  <h1>DOM practice: tasty things</h1>
+  <p id="fact">My favourite treat is ice cream.</p>
+  <p><img id="yum" src="yum.png" alt="Three colourful scoops of ice cream in a cone"></p>
+  <button type="button" id="changeFact">Change text colour</button>
+  <button type="button" id="changeImage">Change image description</button>
+  <p id="result" aria-live="polite">Use the buttons to change the page.</p>
+  <script>
+    // Week 4 Activity 3: select the image and inspect the node type.
+    const yumImage = document.getElementById('yum');
+    console.log('Is the image an element node?', yumImage.nodeType === Node.ELEMENT_NODE);
+    console.log('Image source:', yumImage.src);
+
+    // Week 4 Activity 4: update the paragraph style after a button click.
+    document.getElementById('changeFact').addEventListener('click', () => {
+      document.getElementById('fact').style.color = 'blue';
+      document.getElementById('result').textContent = 'The paragraph colour changed to blue.';
+    });
+    document.getElementById('changeImage').addEventListener('click', () => {
+      yumImage.alt = 'A colourful picture of three scoops of ice cream in a cone';
+      document.getElementById('result').textContent = 'The image alternative text has been updated.';
+      console.log('Updated image alt text:', yumImage.alt);
+    });
+  </script>
+</body>
+</html>

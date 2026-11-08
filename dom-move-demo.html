@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DOM Node Movement Demo</title><style>body{max-width:680px;margin:3rem auto;padding:0 1rem;font-family:Arial,sans-serif;line-height:1.6;color:#263247}p.item{padding:.8rem 1rem;margin:.5rem 0;border:1px solid #cbd5e1;border-radius:8px;background:#f7f8fb}</style></head>
+<body><p><a href="index.html">← Back to lab index</a></p><h1>Moving a DOM node</h1><p class="item" id="one">One</p><p class="item" id="two">Two</p><p class="item" id="three">Three</p><p id="explanation" aria-live="polite">The script will move “Three” before “One”.</p><script>
+  const container = document.body; const first = document.getElementById('one'); const last = document.getElementById('three');
+  container.insertBefore(last, first);
+  document.getElementById('explanation').textContent = 'Result: Three, One, Two. insertBefore moves the existing node; it does not create a duplicate.';
+  console.log('Children after move:', [...container.children].map(element => element.id || element.tagName));
+</script></body></html>

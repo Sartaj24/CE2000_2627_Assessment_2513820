@@ -1,0 +1,23 @@
+:root { --brand: #176b68; --brand-dark: #104b49; --brand-pale: #e7f3f1; }
+body { color: #243342; }
+.site-header { background: var(--bs-body-bg); }
+.brand-mark { display:inline-grid; place-items:center; width:2rem; height:2rem; border-radius:.65rem; background:var(--brand); color:#fff; }
+.section-kicker { color:var(--brand); font-size:.76rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.hero-section { background:linear-gradient(135deg,#edf6f4 0%,#f8f7f2 100%); }
+.hero-title { max-width: 12ch; letter-spacing:-.045em; color:#1f3545; }
+.hero-copy { max-width: 58ch; color:#586b78; }
+.hero-art { width:100%; max-height:330px; object-fit:contain; }
+.btn-brand { background:var(--brand); color:white; border-color:var(--brand); }
+.btn-brand:hover,.btn-brand:focus { background:var(--brand-dark); color:white; border-color:var(--brand-dark); }
+.story-card { border:1px solid #dce5e8; border-radius:1rem; overflow:hidden; box-shadow:0 .4rem 1.2rem rgb(28 49 62 / 7%); }
+.story-image { width:100%; height:180px; object-fit:cover; }
+.story-tag { display:inline-block; align-self:flex-start; padding:.22rem .55rem; border-radius:50rem; background:var(--brand-pale); color:var(--brand-dark); font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; }
+.story-link { color:var(--brand); font-weight:750; text-decoration:none; }
+.story-link:hover { text-decoration:underline; }
+.section-title { color:#21394b; font-weight:750; letter-spacing:-.025em; }
+.about-strip { background:#f0f5f6; }
+.demo-stamp { display:inline-block; padding:.65rem .85rem; border:1px solid #b9d3d0; border-radius:.6rem; color:var(--brand-dark); font-size:.82rem; font-weight:750; }
+.newsletter-panel { border:1px solid #d8e4e3; border-radius:1rem; background:#f6faf9; }
+.site-footer { border-top:1px solid #dce5e8; background:#f6f8f9; }
+.grid-image { display:block; width:100%; height:260px; object-fit:cover; border-radius:1rem; border:1px solid #dce5e8; }
+@media(max-width:575px){.grid-image{height:210px}}

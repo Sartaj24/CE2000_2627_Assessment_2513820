@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles | The Blog</title>
+  <meta name="description" content="A simple blog page implementing the CE2000 Week 2 HTML5 wireframe exercise.">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Week 2 Lab Task 1: implement the supplied blog wireframe in HTML5 and CSS. -->
+  <header id="PageHeader">
+    <img id="SiteLogo" src="blog-logo.jpg" alt="The Blog logo">
+    <div id="SiteName">
+      <h1 id="SiteTitle">The Blog</h1>
+      <p class="tagline">Short articles about learning and the web.</p>
+    </div>
+  </header>
+
+  <nav id="SiteNavigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="#PageContent" aria-current="page">Home</a></li>
+      <li><a href="#About">About</a></li>
+      <li><a href="#PageFooter">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="PageContent" aria-label="Blog articles">
+    <article class="BlogPost">
+      <header>
+        <h2 class="BlogPostTitle">Building a Better Web, One Page at a Time</h2>
+        <time class="BlogPostDate" datetime="2026-10-07">7 October 2026</time>
+      </header>
+      <div class="BlogPostContent">
+        <p>Every website starts with a clear structure. HTML describes the content, CSS controls its presentation, and JavaScript can add behaviour when the user interacts with the page.</p>
+      </div>
+    </article>
+
+    <article class="BlogPost" id="About">
+      <header>
+        <h2 class="BlogPostTitle">About This Blog</h2>
+        <time class="BlogPostDate" datetime="2026-10-13">13 October 2026</time>
+      </header>
+      <div class="BlogPostContent">
+        <p>This learning page demonstrates semantic HTML elements, IDs, reusable classes, external CSS and the CSS box model.</p>
+      </div>
+    </article>
+  </section>
+
+  <footer id="PageFooter">
+    <span>© 2026 The Blog · CE2000 practice</span>
+    <a href="#PageHeader" id="LegalStuff">Legal Stuff</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "ce2000-assessment-2513820",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CE2000 Dynamic Web Technology lecture and lab practice",
+  "scripts": {
+    "start": "node firstServer.js",
+    "start:case": "node textCaseServer.js"
+  },
+  "dependencies": {
+    "text-case": "^1.2.11"
+  }
+}
